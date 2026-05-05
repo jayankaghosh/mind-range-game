@@ -326,10 +326,35 @@ export default function App() {
             <div className="card-title" style={{ fontSize: '1.5rem', textAlign: 'center', marginBottom: 8 }}>
               {roundResult.winnerId === myId ? 'You won the round!' : `${roundResult.winnerName} wins the round!`}
             </div>
-            <p className="text-muted text-center" style={{ marginBottom: 16 }}>
-              {roundResult.winnerName} guessed {roundResult.opponentName}'s number:{' '}
-              <strong style={{ color: 'var(--accent)' }}>{roundResult.secretNumber}</strong>
-            </p>
+            {/* Both players' secret numbers */}
+            <div style={{ display: 'flex', gap: 10, justifyContent: 'center', marginBottom: 20 }}>
+              <div style={{
+                flex: 1, textAlign: 'center',
+                background: 'var(--bg2)', border: '1px solid var(--border)',
+                borderRadius: 'var(--radius-sm)', padding: '10px 14px',
+              }}>
+                <div style={{ fontSize: '0.72rem', fontWeight: 600, color: 'var(--text2)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 4 }}>
+                  {roundResult.winnerName}'s number
+                </div>
+                <div style={{ fontFamily: 'Space Grotesk', fontSize: '1.6rem', fontWeight: 700, color: 'var(--text)' }}>
+                  {roundResult.guesserSecretNumber}
+                </div>
+              </div>
+              <div style={{
+                flex: 1, textAlign: 'center',
+                background: 'var(--bg2)', border: '1px solid var(--accent)',
+                borderRadius: 'var(--radius-sm)', padding: '10px 14px',
+                boxShadow: '0 0 12px var(--accent-glow)',
+              }}>
+                <div style={{ fontSize: '0.72rem', fontWeight: 600, color: 'var(--text2)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 4 }}>
+                  {roundResult.opponentName}'s number
+                </div>
+                <div style={{ fontFamily: 'Space Grotesk', fontSize: '1.6rem', fontWeight: 700, color: 'var(--accent)' }}>
+                  {roundResult.secretNumber}
+                </div>
+                <div style={{ fontSize: '0.7rem', color: 'var(--accent)', marginTop: 2 }}>✓ guessed!</div>
+              </div>
+            </div>
             <div style={{ display: 'flex', gap: 16, justifyContent: 'center' }}>
               {roundResult.scores.map(s => (
                 <div key={s.id} style={{ textAlign: 'center' }}>

@@ -165,13 +165,15 @@ io.on('connection', (socket) => {
       guesser.score++;
 
       const scores = game.players.map(p => ({ id: p.id, name: p.name, score: p.score }));
-      const isLastRound = game.currentRound >= game.settings.rounds;
+      const majority = Math.floor(game.settings.rounds / 2) + 1;
+      const isLastRound = game.currentRound >= game.settings.rounds || guesser.score >= majority;
 
       io.to(code).emit('round-won', {
         winnerId: guesser.id,
         winnerName: guesser.name,
         guess: n,
-        secretNumber: target,
+        secretNumber: target,           // opponent's secret number (the one guessed)
+        guesserSecretNumber: guesser.secretNumber, // winner's own secret number
         opponentName: opponent.name,
         scores,
         round: game.currentRound,
